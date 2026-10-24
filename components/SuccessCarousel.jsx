@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
+import Link from 'next/link';
 import { summaryBanners } from '@/data/students';
 
 import "slick-carousel/slick/slick.css";
@@ -12,21 +13,22 @@ const SuccessCarousel = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 4500,
     pauseOnHover: true,
     swipeToSlide: true,
-    arrows: false
+    arrows: false,
+    adaptiveHeight: false
   };
 
   return (
-    <div className={styles.carouselContainer}>
+    <div className={styles.carouselContainer} aria-label="Toppers and Results Showcase">
       <Slider {...settings}>
-        {summaryBanners.map((banner, index) => (
-          <div key={banner.id}>
+        {summaryBanners.map((banner, index) => {
+          const content = (
             <div className={styles.aspectBox}>
               <Image
                 src={banner.imageUrl}
@@ -34,13 +36,25 @@ const SuccessCarousel = () => {
                 className={styles.bannerImage}
                 priority={index === 0}
                 fetchPriority={index === 0 ? "high" : "auto"}
-                width={1200}
-                height={600}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                width={2466}
+                height={1215}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 95vw, 1800px"
               />
             </div>
-          </div>
-        ))}
+          );
+
+          return (
+            <div key={banner.id}>
+              {banner.link ? (
+                <Link href={banner.link} className={styles.bannerLink} title={banner.altText}>
+                  {content}
+                </Link>
+              ) : (
+                content
+              )}
+            </div>
+          );
+        })}
       </Slider>
     </div>
   );

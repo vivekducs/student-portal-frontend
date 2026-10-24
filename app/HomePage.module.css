@@ -49,11 +49,12 @@
   100% { transform: translate(-50px, 100px); }
 }
 
-/* CLS FIX: Skeleton height matches carousel aspect-ratio (2/1) to prevent layout shift */
+/* CLS FIX: Skeleton height matches carousel aspect-ratio (2466/1215) to prevent layout shift */
 .skeletonHero {
-  aspect-ratio: 2 / 1;
-  min-height: 300px;
+  aspect-ratio: 2466 / 1215;
+  min-height: 200px;
   background: #f1f5f9;
+  border-radius: 12px;
 }
 
 /* CLS FIX: Generic skeleton for below-fold carousels */
@@ -498,6 +499,14 @@
 }
 
 @media (max-width: 768px) {
+  .heroSection {
+    min-height: auto;
+    padding-top: 16px;
+  }
+  .skeletonHero {
+    min-height: auto;
+    border-radius: 8px;
+  }
   .pyqIntro {
     padding: 80px 6% 60px;
   }

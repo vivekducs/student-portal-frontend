@@ -6,50 +6,70 @@
 }
 
 /* Flexibly container that grows to fit the full image height */
-/* CLS FIX: Reserve space with aspect-ratio before carousel JS loads */
+/* CLS FIX: Reserve space with exact aspect-ratio matching the 2466x1215 banners */
 .aspectBox{
   position: relative;
   width: 100%;
   max-height: 850px;
-  background: #fdfdfd;
+  background: #f8fafc;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 2 / 1; /* Prevents layout shift by reserving proportional space */
+  aspect-ratio: 2466 / 1215; /* Prevents layout shift by reserving proportional space */
+  border-radius: 12px;
 }
 
-/* Show the FULL image without ANY cropping */
+.bannerLink{
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Show the FULL image crisply without distortion */
 .bannerImage{
   width: 100%;
-  height: auto;
-  max-height: 750px; /* Increased high-impact height */
-  object-fit: fill; /* Since these are tailored banners, fill the cinematic container */
+  height: 100%;
+  max-height: 750px; /* High-impact height */
+  object-fit: contain;
   object-position: center;
   display: block;
+  border-radius: 12px;
 }
 
 @media (max-width: 768px) {
   .carouselContainer {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+  }
+  .aspectBox,
+  .bannerImage {
+    border-radius: 8px;
   }
 }
 
-/* Slick dots (good contrast on banners) */
+/* Slick dots (good contrast & brand accent) */
 .carouselContainer :global(.slick-dots){
-  bottom:12px;
+  bottom: 12px;
+  z-index: 10;
+}
+.carouselContainer :global(.slick-dots li){
+  margin: 0 3px;
 }
 .carouselContainer :global(.slick-dots li button:before){
-  font-size:10px;
-  color:#111827;
-  opacity:.35;
+  font-size: 9px;
+  color: #1e293b;
+  opacity: 0.4;
+  transition: all 0.25s ease;
 }
 .carouselContainer :global(.slick-dots li.slick-active button:before){
-  color:#111827;
-  opacity:.9;
+  color: #ea580c;
+  opacity: 1;
+  font-size: 11px;
 }
 
 /* Remove outlines from slides on click */
 .carouselContainer :global(.slick-slide){
-  outline:none;
+  outline: none;
 }

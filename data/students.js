@@ -210,30 +210,35 @@ export const students = [
 // Data for the top summary banners
 export const summaryBanners = [
   {
-    id: 'banner-cuet-2026',
-    altText: 'CUET-PG 2026 selected students from Maarula Classes',
-    imageUrl: '/images/cuet-pg-2026.jpg'
-
-  },
-  /*
-  {
-    id: 'banner-cuet',
-    altText: 'CUET-PG 2025 selected students from Maarula Classes',
-    imageUrl: 'https://res.cloudinary.com/dwmj6up6j/image/upload/f_auto,q_auto,w_1920/v1752548234/COMPLETE_o6friz.png'
-
+    id: 'banner-nimcet-2026',
+    altText: 'NIMCET 2026 Top Rankers and Achievers - Maarula Classes',
+    imageUrl: '/images/nimcetpriority1.webp',
+    priority: 1,
+    link: '/questions?exam=NIMCET'
   },
   {
-    id: 'banner-igdtuw',
-    altText: 'IGDTUW 2025 selected students from Maarula Classes',
-    imageUrl: 'https://res.cloudinary.com/dwmj6up6j/image/upload/v1752548232/IGDTUW_osr4ir.jpg'
+    id: 'banner-cuet-pg-2026',
+    altText: 'CUET-PG 2026 Selected Students and Top Rankers - Maarula Classes',
+    imageUrl: '/images/cuet-pg-2026-2.webp',
+    priority: 2,
+    link: '/questions?exam=CUET PG'
   },
   {
-    id: 'banner-amu',
-    altText: 'AMU, VIT, MAH-CET 2025 selected students from Maarula Classes',
-    imageUrl: 'https://res.cloudinary.com/dwmj6up6j/image/upload/v1752548233/AMU_MAH-CET_VIT_tfbdco.jpg'
+    id: 'banner-igdtuw-2026',
+    altText: 'IGDTUW 2026 Selected Students and Top Rankers - Maarula Classes',
+    imageUrl: '/images/igdtuw-2026-3.webp',
+    priority: 3,
+    link: '/results'
+  },
+  {
+    id: 'banner-all-combined-2026',
+    altText: 'Maarula Classes All MCA Entrance Toppers and Selections Combined',
+    imageUrl: '/images/all combined-4.webp',
+    priority: 4,
+    link: '/results'
   }
-  */
 ];
+
 
 // Placed students (no year constraints). Optional fields (company, role, yearPlaced) can be added later.
 export const placements = [
