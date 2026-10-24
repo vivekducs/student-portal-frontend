@@ -3,59 +3,20 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { FaGooglePlay } from "react-icons/fa";
 import styles from "./EarlyBirdPopup.module.css";
 
-const TOTAL_SEATS = 90;
-const DAILY_DECREMENT = 10;
-const STORAGE_KEY_SEATS = "earlybird_seats";
-const STORAGE_KEY_DATE = "earlybird_last_date";
-const STORAGE_KEY_CLOSED = "earlybird_closed";
-const CTA_URL =
-  "https://maarulaclasses.classx.co.in/test-series/10-nimcet-2026-test-series-udgam";
-const COUPON_CODE = "EARLYBIRD90";
-
-function getSeatsRemaining() {
-  try {
-    const storedDate = localStorage.getItem(STORAGE_KEY_DATE);
-    const storedSeats = localStorage.getItem(STORAGE_KEY_SEATS);
-    const today = new Date().toDateString();
-
-    if (!storedDate || !storedSeats) {
-      localStorage.setItem(STORAGE_KEY_DATE, today);
-      localStorage.setItem(STORAGE_KEY_SEATS, String(TOTAL_SEATS));
-      return TOTAL_SEATS;
-    }
-
-    const daysDiff = Math.floor(
-      (new Date(today) - new Date(storedDate)) / (1000 * 60 * 60 * 24)
-    );
-
-    if (daysDiff > 0) {
-      const newSeats = Math.max(
-        0,
-        parseInt(storedSeats, 10) - daysDiff * DAILY_DECREMENT
-      );
-      localStorage.setItem(STORAGE_KEY_DATE, today);
-      localStorage.setItem(STORAGE_KEY_SEATS, String(newSeats));
-      return newSeats;
-    }
-
-    return Math.max(0, parseInt(storedSeats, 10));
-  } catch {
-    return TOTAL_SEATS;
-  }
-}
+const STORAGE_KEY_CLOSED = "diwalisale_closed";
+const CTA_URL = "https://maarulaclasses.classx.co.in/new-courses";
+const APP_URL = "https://play.google.com/store/apps/details?id=com.maarula.classes";
 
 export default function EarlyBirdPopup() {
   const [isOpen, setIsOpen] = useState(false);
-  const [seats, setSeats] = useState(TOTAL_SEATS);
-  const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const hasClosed = sessionStorage.getItem(STORAGE_KEY_CLOSED);
-    setSeats(getSeatsRemaining());
     if (!hasClosed) {
       const t = setTimeout(() => setIsOpen(true), 600);
       return () => clearTimeout(t);
@@ -65,24 +26,24 @@ export default function EarlyBirdPopup() {
   useEffect(() => {
     if (!mounted) return;
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen, mounted]);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
-    try { sessionStorage.setItem(STORAGE_KEY_CLOSED, "true"); } catch {}
+    try {
+      sessionStorage.setItem(STORAGE_KEY_CLOSED, "true");
+    } catch {}
   }, []);
 
   const handleOverlayClick = useCallback(
-    (e) => { if (e.target === e.currentTarget) handleClose(); },
+    (e) => {
+      if (e.target === e.currentTarget) handleClose();
+    },
     [handleClose]
   );
-
-  const handleCopy = useCallback(() => {
-    navigator.clipboard?.writeText(COUPON_CODE).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, []);
 
   if (!mounted || !isOpen) return null;
 
@@ -92,7 +53,7 @@ export default function EarlyBirdPopup() {
       onClick={handleOverlayClick}
       role="dialog"
       aria-modal="true"
-      aria-label="Early Bird Offer Popup"
+      aria-label="Diwali Mega Sale Popup"
     >
       <div className={styles.modal}>
         {/* Close Button */}
@@ -104,79 +65,77 @@ export default function EarlyBirdPopup() {
           ✕
         </button>
 
-        {/* Full Image — no cropping */}
+        {/* Banner Image linked to courses */}
         <div className={styles.imageWrapper}>
-          <Image
-            src="/earlybird90.jpg"
-            alt="NIMCET 2026 UDGAM Early Bird Rank Booster Test Series"
-            width={1080}
-            height={1080}
-            className={styles.heroImage}
-            /* PERF: Removed priority — popup opens 600ms after load, no need to preload 197KB image */
-            loading="lazy"
-          />
-        </div>
-
-        {/* Content below image */}
-        <div className={styles.content}>
-
-          {/* Scarcity Counter */}
-          <div className={styles.scarcityBox}>
-            <span className={styles.scarcityIcon}>⚡</span>
-            <div>
-              <p className={styles.scarcityMain}>
-                Hurry! Only{" "}
-                <span className={styles.seatCount}>{seats}</span> seats left
-              </p>
-              <p className={styles.scarcitySub}>
-                Only {TOTAL_SEATS} Early Bird Seats Available
-              </p>
-            </div>
-          </div>
-
-          {/* Coupon Section */}
-          <div className={styles.couponSection}>
-            <p className={styles.couponLabel}>🎟️ Apply Coupon Code</p>
-            <div className={styles.couponRow}>
-              <span className={styles.couponCode}>{COUPON_CODE}</span>
-              <button
-                className={`${styles.copyBtn} ${copied ? styles.copyBtnSuccess : ""}`}
-                onClick={handleCopy}
-                aria-label="Copy coupon code"
-              >
-                {copied ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-          </div>
-
-          {/* Offer note */}
-          <p className={styles.offerNote}>
-            ⏳ Offer valid for limited students only
-          </p>
-
-          {/* CTA Button */}
           <a
             href={CTA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.ctaButton}
             onClick={handleClose}
+            className={styles.imageLink}
+            title="Explore Maarula Classes Diwali Sale"
           >
-            <span>Enroll Now</span>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <Image
+              src="/images/diwali sale.webp"
+              alt="Maarula Classes Diwali Sale - Discounts on All MCA Exam Batches & Test Series"
+              width={1280}
+              height={720}
+              className={styles.heroImage}
+              loading="lazy"
+            />
           </a>
+        </div>
+
+        {/* Content below image */}
+        <div className={styles.content}>
+          <div className={styles.saleHeader}>
+            <h3 className={styles.saleTitle}>🪔 Diwali Mega Sale is LIVE!</h3>
+            <p className={styles.saleDescription}>
+              Huge festive discounts across <strong>All MCA Entrance Batches &amp; Test Series</strong> — NIMCET, CUET-PG, IGDTUW, Jamia, MAH-CET &amp; more.
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className={styles.buttonGroup}>
+            <a
+              href={CTA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaButton}
+              onClick={handleClose}
+            >
+              <span>Explore Batches &amp; Test Series</span>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            <a
+              href={APP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.appButton}
+              onClick={handleClose}
+            >
+              <FaGooglePlay size={18} />
+              <span>Download Maarula Mathem App</span>
+            </a>
+          </div>
+
+          {/* Offer note */}
+          <p className={styles.offerNote}>
+            ⏳ Limited period festive offer. Valid for new admissions.
+          </p>
         </div>
       </div>
     </div>

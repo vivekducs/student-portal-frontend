@@ -33,7 +33,7 @@ export default function ConditionalLayout({ children }) {
       <BottomNav />
       <FloatingSocialBar />
       <Toaster position="top-center" reverseOrder={false} />
-      {/* <EarlyBirdPopup /> */}
+      <EarlyBirdPopup />
     </>
   );
 }
