@@ -101,15 +101,13 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Visitor Counter */}
-      <div className={styles.visitorCounterSection}>
-        <div id="JFWebsiteWidget-01a1bf563b707000864933c83cbe02c686e7" suppressHydrationWarning />
-        <Script
-          id="jotform-visitor-counter"
-          src="https://www.jotform.com/website-widgets/embed/01a1bf563b707000864933c83cbe02c686e7"
-          strategy="afterInteractive"
-        />
-      </div>
+      {/* JotForm Visitor Counter */}
+      <div id="JFWebsiteWidget-01a1bf563b707000864933c83cbe02c686e7" suppressHydrationWarning />
+      <Script
+        id="jotform-visitor-counter"
+        src="https://www.jotform.com/website-widgets/embed/01a1bf563b707000864933c83cbe02c686e7"
+        strategy="afterInteractive"
+      />
       
       <div className={styles.footerBottom}>
         {/* HYDRATION: Static year string avoids server/client mismatch at year boundary */}

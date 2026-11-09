@@ -160,15 +160,7 @@
 
 .playStoreButton img { height: 28px; }
 
-/* --- Section 4: Visitor Counter & Bottom Bar --- */
-.visitorCounterSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto 30px;
-  min-height: 48px;
-}
-
+/* --- Section 4: Bottom Bar --- */
 .footerBottom {
   text-align: center;
   padding: 30px 0;
