@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Script from 'next/script';
 import { ArrowUp } from 'lucide-react';
 import { FaGooglePlay } from 'react-icons/fa';
 import styles from './Footer.module.css';
@@ -98,6 +99,16 @@ const Footer = () => {
               <span>Google Play</span>
             </a>
         </div>
+      </div>
+
+      {/* Visitor Counter */}
+      <div className={styles.visitorCounterSection}>
+        <div id="JFWebsiteWidget-01a1bf563b707000864933c83cbe02c686e7" suppressHydrationWarning />
+        <Script
+          id="jotform-visitor-counter"
+          src="https://www.jotform.com/website-widgets/embed/01a1bf563b707000864933c83cbe02c686e7"
+          strategy="afterInteractive"
+        />
       </div>
       
       <div className={styles.footerBottom}>
