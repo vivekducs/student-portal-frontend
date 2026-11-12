@@ -35,7 +35,16 @@ const BackToTopButton = () => {
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <>
+      {/* JotForm Visitor Counter - Shown before Footer */}
+      <div id="JFWebsiteWidget-01a1bf563b707000864933c83cbe02c686e7" suppressHydrationWarning />
+      <Script
+        id="jotform-visitor-counter"
+        src="https://www.jotform.com/website-widgets/embed/01a1bf563b707000864933c83cbe02c686e7"
+        strategy="afterInteractive"
+      />
+
+      <footer className={styles.footer}>
       <div className={styles.footerTop}>
         <Image 
           src="/maarulalogo.png" 
@@ -101,14 +110,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* JotForm Visitor Counter */}
-      <div id="JFWebsiteWidget-01a1bf563b707000864933c83cbe02c686e7" suppressHydrationWarning />
-      <Script
-        id="jotform-visitor-counter"
-        src="https://www.jotform.com/website-widgets/embed/01a1bf563b707000864933c83cbe02c686e7"
-        strategy="afterInteractive"
-      />
-      
       <div className={styles.footerBottom}>
         {/* HYDRATION: Static year string avoids server/client mismatch at year boundary */}
         <p>© 2026 Maarula Classes. All Rights Reserved.</p>
@@ -135,7 +136,8 @@ const Footer = () => {
       </div>
       <BackToTopButton />
     </footer>
-  );
+  </>
+);
 };
 
 export default Footer;
